@@ -1,0 +1,6 @@
+.Sidebar {
+  flex-shrink: 0;
+  min-height: calc(100vh - 215px);
+
+  justify-content: flex-start;
+}

@@ -1,0 +1,158 @@
+@import '../../assets/scss/variables';
+
+.AppHeader {
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 50px;
+  padding: 0 !important;
+  height: 82px;
+
+  &-something {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+  }
+
+  &-logo {
+    display: block;
+    color: $mainBlackColor;
+    font-size: 37px !important;
+    line-height: 43px !important;
+    flex-shrink: 0;
+  }
+
+  &-location {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-size: 14px;
+    line-height: 140%;
+
+    color: $lightGreyColor;
+    &-wrapper {
+      overflow: hidden;
+
+      cursor: pointer;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin: 0 20px;
+
+      height: 100%;
+      width: auto;
+      max-width: 165px;
+      min-width: 20px;
+
+      flex-shrink: 100;
+    }
+
+    &-icon {
+      margin-right: 9px;
+    }
+  }
+
+  &-search {
+    width: 100%;
+    height: 1.6em;
+
+    border: none;
+    outline: none;
+
+    padding: 0 20px;
+
+    font-size: 16px !important;
+    line-height: 19px !important;
+
+    color: $mainBlackColor;
+
+    &-wrapper {
+      width: 100%;
+
+      max-width: 468px;
+      min-width: 275px;
+      height: 80%;
+
+      padding: 4px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      flex-shrink: 5;
+    }
+
+    &-button {
+      padding: 12px 40px;
+      background: $mainGreyColor;
+
+      cursor: pointer;
+    }
+  }
+
+  &-icons-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    width: 120px;
+  }
+
+  &-basket {
+    &-wrapper {
+      position: relative;
+    }
+    &-button {
+      border: 1px solid $lightGreyColor !important;
+
+      width: 50px;
+      height: 50px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: inherit;
+
+      cursor: pointer;
+    }
+    &-quantity {
+      font-weight: 600;
+      font-size: 14px;
+
+      color: $mainBlueColor;
+
+      &-wrapper {
+        position: absolute;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 31px;
+        height: 31px;
+
+        border-radius: 50%;
+
+        top: 0;
+        right: 0;
+
+        transform: translate(25%, -25%);
+        background: #fff;
+      }
+    }
+  }
+  &-ava {
+    height: 50px !important;
+    width: 50px !important;
+    &-wrapper {
+      cursor: pointer;
+    }
+  }
+}
