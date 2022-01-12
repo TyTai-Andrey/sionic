@@ -20,13 +20,18 @@
     color: $mainBlackColor;
     font-size: 37px !important;
     line-height: 43px !important;
+    font-weight: 700 !important;
     flex-shrink: 0;
+
+    cursor: pointer;
   }
 
   &-location {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    width: 100%;
 
     font-size: 14px;
     line-height: 140%;
@@ -44,7 +49,7 @@
       margin: 0 20px;
 
       height: 100%;
-      width: auto;
+      width: 100%;
       max-width: 165px;
       min-width: 20px;
 
@@ -58,7 +63,6 @@
 
   &-search {
     width: 100%;
-    height: 1.6em;
 
     border: none;
     outline: none;
@@ -91,6 +95,13 @@
       background: $mainGreyColor;
 
       cursor: pointer;
+    }
+
+    fieldset {
+      border: 0;
+    }
+    svg {
+      display: none;
     }
   }
 

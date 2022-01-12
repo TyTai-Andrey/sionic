@@ -1,9 +1,14 @@
 
-type TooltipsReducerState = {
+type CommonReducerState = {
+    selectedSity: string;
     index: number;
-    isTooltipOpen: boolean;
+};
+
+type BasketReducerState = {
+    products: IProductBasket[]
 };
 
 type AppState = {
-    tooltipsReducer: TooltipsReducerState;
+    commonReducer: CommonReducerState;
+    basketReducer: BasketReducerState;
 };

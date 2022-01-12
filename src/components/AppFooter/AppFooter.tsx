@@ -9,14 +9,14 @@ import './AppFooter.scss';
 export const AppFooter = () => {
   const createIconsBlock = (
     mainClass: string,
-    iconsData: ISocialNetworksIconsData[],
+    iconsData: IBlockData[],
     textTitle: string
   ) => {
     return (
       <div className={`${mainClass} IconsBlock`}>
         <div className={`${mainClass}-title IconsBlock-title`}>{textTitle}</div>
         <div className={`${mainClass}-icons IconsBlock-icons`}>
-          {iconsData.map((iconData: ISocialNetworksIconsData) => {
+          {iconsData.map((iconData: IBlockData) => {
             return (
               <div
                 className={`${mainClass}-icon IconsBlock-icon`}

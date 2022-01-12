@@ -1,14 +1,15 @@
 import { combineReducers, AnyAction } from 'redux';
-
-import { tooltipsReducer } from './reduxCollection/tooltips';
-
 import { ThunkDispatch } from 'redux-thunk';
+
+import { commonReducer } from './reduxCollection/common';
+import { basketReducer } from './reduxCollection/basket';
 
 
 export type AppDispatch = ThunkDispatch<AppState, any, AnyAction>;
 
 const rootReducer = combineReducers<AppState>({
-  tooltipsReducer: tooltipsReducer,
+  commonReducer,
+  basketReducer,
 });
 
 export { rootReducer };

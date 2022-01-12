@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useSelector } from 'react-redux';
 import {
   Box,
   AppBar,
@@ -8,13 +8,35 @@ import {
   Avatar,
   Menu,
   MenuItem,
-  Container,
+  Autocomplete,
+  TextField,
 } from '@mui/material';
 
 import './AppHeader.scss';
-import { mainBlackColor } from '../../constants/constants';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_NAMES } from '../../constants/routeNames';
 
-export const AppHeader: React.FC = () => {
+type AppHeaderProps = {
+  setOpenModalLocation: React.Dispatch<React.SetStateAction<boolean>>;
+  categorys: null | ICategory[];
+  products: null | IProduct[];
+};
+
+export const AppHeader: React.FC<AppHeaderProps> = ({
+  setOpenModalLocation,
+  categorys,
+  products,
+}) => {
+  const navigate = useNavigate();
+
+  const { main, basket } = ROUTE_NAMES;
+
+  const { selectedSity } = useSelector(
+    (state: AppState) => state.commonReducer
+  );
+
+  const [value, setValue] = React.useState(null);
+  const [inputValue, setInputValue] = React.useState('');
   const [openMenu, setOpenMenu] = useState<
     (EventTarget & HTMLDivElement) | null
   >(null);
@@ -24,8 +46,13 @@ export const AppHeader: React.FC = () => {
   ) => {
     setOpenMenu(event.currentTarget);
   };
+
   const handleCloseMenu = () => {
     setOpenMenu(null);
+  };
+
+  const openModalLocationHandler = () => {
+    setOpenModalLocation(true);
   };
 
   return (
@@ -42,17 +69,21 @@ export const AppHeader: React.FC = () => {
               noWrap
               component="div"
               className="AppHeader-logo"
+              onClick={() => navigate(main)}
             >
               React
             </Typography>
-            <Box className="AppHeader-location-wrapper">
+            <Box
+              className="AppHeader-location-wrapper"
+              onClick={openModalLocationHandler}
+            >
               <img
                 src={require('../../assets/img/pin.svg').default}
                 alt="pin"
                 loading="lazy"
                 className="AppHeader-location-icon"
               />
-              <p className="AppHeader-location">Александровск</p>
+              <p className="AppHeader-location">{selectedSity}</p>
             </Box>
             <Box
               className="AppHeader-search-wrapper border"
@@ -60,11 +91,34 @@ export const AppHeader: React.FC = () => {
                 ml: 2,
               }}
             >
-              <input
+              <Autocomplete
+                // disablePortal
+                id="combo-box-demo"
                 className="AppHeader-search"
-                placeholder="Поиск бренда, товара, категории..."
+                value={value}
+                onChange={(event, newValue) => {
+                  //@ts-ignore
+                  newValue && setValue(newValue);
+                }}
+                inputValue={inputValue}
+                onInputChange={(event, newInputValue) => {
+                  setInputValue(newInputValue);
+                  setValue(null);
+                }}
+                options={
+                  categorys && products ? [...categorys, ...products] : []
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Поиск бренда, товара, категории..."
+                  />
+                )}
               />
-              <button className="AppHeader-search-button border">
+              <button
+                className="AppHeader-search-button border"
+                onClick={() => console.log(value)}
+              >
                 <img
                   src={require('../../assets/img/searchIcon.svg').default}
                   alt="searchIcon"
@@ -75,7 +129,10 @@ export const AppHeader: React.FC = () => {
             </Box>
           </Box>
           <Box className="AppHeader-icons-wrapper">
-            <Box className="AppHeader-basket-wrapper">
+            <Box
+              className="AppHeader-basket-wrapper"
+              onClick={() => navigate(basket)}
+            >
               <button className="AppHeader-basket-button border">
                 <img
                   src={require('../../assets/img/basket.svg').default}
@@ -109,6 +166,7 @@ export const AppHeader: React.FC = () => {
                 }}
                 open={Boolean(openMenu)}
                 onClose={handleCloseMenu}
+                sx={{ top: 60 }}
               >
                 <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
                 <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
