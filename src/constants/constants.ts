@@ -1,4 +1,5 @@
 export const API_URL = 'https://test2.sionic.ru/api';
+export const URL = 'https://test2.sionic.ru';
 
 export const socialNetworksIconsData: IBlockData[] = [
   {

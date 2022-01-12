@@ -31,6 +31,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 
   const { main, basket } = ROUTE_NAMES;
 
+  const { products: basketProducts } = useSelector(
+    (state: AppState) => state.basketReducer
+  );
+
   const { selectedSity } = useSelector(
     (state: AppState) => state.commonReducer
   );
@@ -140,9 +144,13 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
                   loading="lazy"
                   className="AppHeader-basket-icon"
                 />
-                <div className="AppHeader-basket-quantity-wrapper">
-                  <p className="AppHeader-basket-quantity">3</p>
-                </div>
+                {!!basketProducts?.length && (
+                  <div className="AppHeader-basket-quantity-wrapper">
+                    <p className="AppHeader-basket-quantity">
+                      {basketProducts.length}
+                    </p>
+                  </div>
+                )}
               </button>
             </Box>
             <Box className="AppHeader-ava-wrapper">

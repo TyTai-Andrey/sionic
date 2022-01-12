@@ -15,10 +15,13 @@ import { PureModalLocation } from './components/PureModal/components/PureModalLo
 
 import { ROUTE_NAMES } from './constants/routeNames';
 import { setSelectedSity } from './redux/reduxCollection/common';
+import { setProducts as setShowProducts } from './redux/reduxCollection/showProducts';
+import { setProducts as setBasketProducts } from './redux/reduxCollection/basket';
 
 import './App.scss';
 import { fetchCategories } from './services/fetchCategories';
 import { fetchProducts } from './services/fetchProducts';
+import { getLocalStorage } from './common';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -31,7 +34,10 @@ export const App = () => {
   const renderRoutes = () => {
     return (
       <Routes>
-        <Route path={main} element={<Main categorys={categorys} />} />
+        <Route
+          path={main}
+          element={<Main categorys={categorys} allProducts={products} />}
+        />
         <Route path={basket} element={<Basket />} />
         <Route path={wrongPage} element={<WrongPage />} />
       </Routes>
@@ -48,7 +54,7 @@ export const App = () => {
   };
 
   const getProducts = async () => {
-    const products = await fetchProducts(null, null, null);
+    const products = await fetchProducts();
     if (products) {
       setProducts(
         products?.map((i: IProduct) => ({
@@ -56,6 +62,7 @@ export const App = () => {
           label: i.name,
         }))
       );
+      dispatch(setShowProducts(products.slice(0, 16)));
     }
   };
 
@@ -73,8 +80,9 @@ export const App = () => {
   };
 
   useEffect(() => {
-    getCategories();
-    getProducts();
+    if (!categorys) getCategories();
+    if (!products) getProducts();
+    dispatch(setBasketProducts(getLocalStorage('productsBasket')));
   }, []);
 
   return (

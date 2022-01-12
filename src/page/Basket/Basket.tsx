@@ -26,9 +26,7 @@ export const Basket: React.FC = () => {
               {products
                 ? products.reduce(
                     (sum: number, product: IProductBasket) =>
-                      sum +
-                      product.quantity *
-                        Number(product.price.split(' ').join('')),
+                      sum + product.quantity * product.price,
                     0
                   )
                 : 0}

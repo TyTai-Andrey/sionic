@@ -1,5 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { setLocalStorage } from '../../../../common';
 import { setProducts } from '../../../../redux/reduxCollection/basket';
 
 import './Product.scss';
@@ -13,13 +15,19 @@ export const Product: React.FC<ProductProps> = ({ product }) => {
   const dispatch = useDispatch();
 
   const chanchProductData = (field: string, data: any) => {
-    dispatch(
-      setProducts(
-        products.map((item) =>
-          item.id === product.id ? { ...item, [`${field}`]: data } : item
-        )
-      )
+    const newProductsData = products?.map((item) =>
+      item.id === product.id ? { ...item, [`${field}`]: data } : item
     );
+
+    dispatch(setProducts(newProductsData));
+
+    setLocalStorage('productsBasket', newProductsData);
+  };
+
+  const deleteProduct = () => {
+    const newProductsData = products?.filter((item) => item.id !== product.id);
+    dispatch(setProducts(newProductsData));
+    setLocalStorage('productsBasket', newProductsData);
   };
 
   return (
@@ -86,6 +94,7 @@ export const Product: React.FC<ProductProps> = ({ product }) => {
           alt="delete"
           loading="lazy"
           className="Product-delete--icon"
+          onClick={deleteProduct}
         />
       </div>
     </div>
