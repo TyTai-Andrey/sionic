@@ -38,3 +38,10 @@ interface IProductVariations {
   product_id: number;
   stock: number;
 }
+
+interface book {
+  items: string[];
+  itemsById: string[];
+  indexes: string[];
+  meta: string[];
+}

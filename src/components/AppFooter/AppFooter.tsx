@@ -16,21 +16,19 @@ export const AppFooter = () => {
       <div className={`${mainClass} IconsBlock`}>
         <div className={`${mainClass}-title IconsBlock-title`}>{textTitle}</div>
         <div className={`${mainClass}-icons IconsBlock-icons`}>
-          {iconsData.map((iconData: IBlockData) => {
-            return (
-              <div
-                className={`${mainClass}-icon IconsBlock-icon`}
-                key={iconData.img}
-              >
-                <img
-                  src={`${iconData.img}`}
-                  alt={iconData.title}
-                  loading="lazy"
-                  className={`${mainClass}--icon IconsBlock--icon`}
-                />
-              </div>
-            );
-          })}
+          {iconsData.map((iconData: IBlockData) => (
+            <div
+              className={`${mainClass}-icon IconsBlock-icon`}
+              key={iconData.img}
+            >
+              <img
+                src={`${iconData.img}`}
+                alt={iconData.title}
+                loading="lazy"
+                className={`${mainClass}--icon IconsBlock--icon`}
+              />
+            </div>
+          ))}
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
 import { Main } from './page/Main';
@@ -22,6 +22,10 @@ import './App.scss';
 import { fetchCategories } from './services/fetchCategories';
 import { fetchProducts } from './services/fetchProducts';
 import { getLocalStorage } from './common';
+import {
+  createCategory,
+  createProduct,
+} from './redux/redux-orm/models/entitiesReducer';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -63,6 +67,10 @@ export const App = () => {
         }))
       );
       dispatch(setShowProducts(products.slice(0, 16)));
+
+      // products.forEach((element: IProduct, idx: number) =>
+      //   dispatch(createProduct(element))
+      // );
     }
   };
 
@@ -76,6 +84,10 @@ export const App = () => {
           label: i.name,
         }))
       );
+
+      // categories.forEach((element: ICategory, idx: number) =>
+      //   dispatch(createCategory(element))
+      // );
     }
   };
 

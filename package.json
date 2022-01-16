@@ -16,6 +16,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
     "redux-devtools-extension": "^2.13.9",
+    "redux-orm": "^0.16.2",
     "redux-thunk": "^2.4.1",
     "typescript": "^4.5.4",
     "web-vitals": "^1.1.1"
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11"
+    "@types/react-dom": "^17.0.11",
+    "@types/redux-orm": "^0.16.1"
   }
 }

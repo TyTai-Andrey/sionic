@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { createSelector } from 'redux-orm';
 
 import { Skeleton } from '@mui/material';
 
@@ -8,6 +9,10 @@ import { feachProductImages } from '../../../../services/feachProductImages';
 import { feachProductVariations } from '../../../../services/feachProductVariations';
 import { setProducts } from '../../../../redux/reduxCollection/basket';
 import { setLocalStorage } from '../../../../common';
+import {
+  createProductImages,
+  createProductVariations,
+} from '../../../../redux/redux-orm/models/entitiesReducer';
 
 type ProductProps = {
   product: IProduct;
@@ -38,6 +43,10 @@ export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
     );
     if (productImages) {
       setProductImages(productImages);
+
+      // productImages.forEach((elem: IProductImages) =>
+      //   dispatch(createProductImages(elem))
+      // );
     }
   };
 
@@ -51,6 +60,10 @@ export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
     if (productVariations) {
       setProductVariations(productVariations);
     }
+
+    // productVariations.forEach((elem: IProductVariations) =>
+    //   dispatch(createProductVariations(elem))
+    // );
   };
 
   useEffect(() => {
