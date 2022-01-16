@@ -11,9 +11,9 @@ export const Sidebar: React.FC = () => {
     <Box className="Sidebar">
       <Box>
         <ImageList sx={{ width: 351, height: '100%', p: 2 }} cols={1}>
-          {sidebarBlocksData.map((item: IBlockData) => (
+          {sidebarBlocksData.map((item: IBlockData, idx: number) => (
             <ImageListItem
-              key={item.img}
+              key={item.img + idx}
               sx={{
                 m: '10px 0',
                 borderRadius: '10px',
@@ -21,16 +21,11 @@ export const Sidebar: React.FC = () => {
                 height: '157px !important',
                 position: 'relative',
 
-                '&:first-child': { mt: 0 },
+                '&:first-of-type': { mt: 0 },
                 '&:last-child': { mb: 0 },
               }}
             >
-              <img
-                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-              />
+              <img src={`${item.img}`} alt={item.title} loading="lazy" />
               <Box
                 sx={{
                   width: '100%',
