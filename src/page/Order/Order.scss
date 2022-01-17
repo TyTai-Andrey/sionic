@@ -2,24 +2,24 @@
 
 .Order {
   display: flex;
-  padding: 30px 50px 50px 50px;
+  padding: 30px 50px 50px 40px;
   &-title {
     font-size: 20px;
     line-height: 23px;
     font-weight: 700;
 
     margin-bottom: 30px;
+    padding-left: 10px;
   }
   &-left {
-    // display: flex;
-    // flex-direction: column;
-
     margin-right: 70px;
 
     &-settings {
     }
     &-setting {
+      margin-top: 10px;
       &-title {
+        padding-left: 10px;
         margin-bottom: 10px;
 
         font-weight: 600;
@@ -34,10 +34,54 @@
         .MuiFormControl-root {
           width: 50%;
 
+          fieldset {
+            border: 0;
+          }
+
           &:first-child {
             margin-right: 10px;
           }
         }
+      }
+
+      &-location {
+        &-selector {
+          border: none;
+          outline: none;
+
+          width: 100%;
+
+          fieldset {
+            border: 0;
+          }
+          svg {
+            display: none;
+          }
+
+          &-wrapper {
+            margin-top: 20px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            height: 40px;
+            padding: 0px 14px;
+          }
+        }
+      }
+      &-input {
+        width: 100%;
+
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 140%;
+
+        color: $mainBlackColor;
+
+        padding: 10px 10px 10px 30px;
+
+        outline: none;
       }
     }
   }

@@ -30,3 +30,26 @@ export const getLocalStorage = (field: string) => {
     if (data) return JSON.parse(data);
     return data;
 }
+
+export const checkPhone = (tel: string) => {
+    if (/[\0-9]+/g.test(tel))
+      return true;
+
+    return false
+}
+
+export const getCorrectPhone = (tel: string) => {
+    return tel.replace(/\D/g, "").slice(0, 12)
+}
+
+export const getCorrectName = (name: string) => {
+    const result = name.replace(/\d/g, "").match(/[\wа-я_A-Я ]+/g);
+    return result ? result[0].slice(0, 31) : ''
+  };
+
+export const checkName = (name: string) => {
+    // if (/[A-z_0-9]+/g.test(name)) return true;
+    if (/[\wа-я_A-Я]+/g.test(name) && !/[<>()[\]\\{}~!#,;:@?$/"'`]+/g.test(name))
+      return true;
+    return false;
+  };
