@@ -26,11 +26,12 @@ import {
   createCategory,
   createProduct,
 } from './redux/redux-orm/models/entitiesReducer';
+import { Order } from './page/Order';
 
 export const App = () => {
   const dispatch = useDispatch();
 
-  const { main, wrongPage, basket } = ROUTE_NAMES;
+  const { main, wrongPage, basket, order } = ROUTE_NAMES;
   const [openModalLocation, setOpenModalLocation] = useState<boolean>(false);
   const [categorys, setCategorys] = useState<null | ICategory[]>(null);
   const [products, setProducts] = useState<null | IProduct[]>(null);
@@ -44,6 +45,7 @@ export const App = () => {
         />
         <Route path={basket} element={<Basket />} />
         <Route path={wrongPage} element={<WrongPage />} />
+        <Route path={order} element={<Order />} />
       </Routes>
     );
   };

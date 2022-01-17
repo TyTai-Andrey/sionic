@@ -1,0 +1,63 @@
+@import '../../../../assets/scss/variables';
+
+.PromoBlock {
+  width: 311px;
+  height: 143px;
+
+  margin: 24px auto 0;
+
+  border: 1px solid $mainPinkColor;
+  border-radius: 20px;
+
+  position: relative;
+
+  padding: 20px;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  &-img {
+    position: absolute;
+    left: -20px;
+    top: 50%;
+
+    transform: translateY(-50%);
+  }
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    width: 75%;
+    height: 100%;
+  }
+  &-text {
+    color: $mainBlueColor;
+
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 130%;
+  }
+  &-button {
+    background: $mainBlueColor;
+
+    border-radius: 51px;
+
+    padding: 10px 25px;
+
+    margin-top: 10px;
+
+    color: #fff;
+
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+
+    border: 0;
+    outline: none;
+
+    cursor: pointer;
+  }
+}

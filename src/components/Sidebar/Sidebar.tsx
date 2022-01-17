@@ -5,10 +5,12 @@ import { Box, ImageList, ImageListItem, Typography } from '@mui/material';
 import { sidebarBlocksData } from '../../constants/constants';
 
 import './Sidebar.scss';
+import { PromoBlock } from './components/PromoBlock';
 
 export const Sidebar: React.FC = () => {
   return (
     <Box className="Sidebar">
+      <PromoBlock />
       <Box>
         <ImageList sx={{ width: 351, height: '100%', p: 2 }} cols={1}>
           {sidebarBlocksData.map((item: IBlockData, idx: number) => (

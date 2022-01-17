@@ -1,0 +1,104 @@
+@import '../../assets/scss/variables';
+
+.Order {
+  display: flex;
+  padding: 30px 50px 50px 50px;
+  &-title {
+    font-size: 20px;
+    line-height: 23px;
+    font-weight: 700;
+
+    margin-bottom: 30px;
+  }
+  &-left {
+    // display: flex;
+    // flex-direction: column;
+
+    margin-right: 70px;
+
+    &-settings {
+    }
+    &-setting {
+      &-title {
+        margin-bottom: 10px;
+
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 140%;
+
+        color: $mainBlackColor;
+      }
+      &-date_time {
+        display: flex;
+
+        .MuiFormControl-root {
+          width: 50%;
+
+          &:first-child {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+  &-right {
+    margin-top: 70px;
+    &-makeOrder {
+      display: flex;
+      flex-direction: column;
+    }
+    &-OrderWrapper {
+      width: 100%;
+
+      background: $mainGreyColor;
+
+      padding: 20px;
+
+      border-radius: 20px;
+
+      .OrderWrapper {
+        &-point {
+          width: 100%;
+          line-height: 140%;
+
+          display: flex;
+          justify-content: space-between;
+
+          &-price {
+            font-size: 16px;
+            &-total {
+              font-weight: 600;
+              color: $mainBlackColor;
+            }
+          }
+        }
+        &-top {
+          font-size: 14px;
+        }
+        &-bottom {
+          font-size: 16px;
+          padding-top: 15px;
+        }
+      }
+    }
+    &-button {
+      width: 100%;
+
+      margin-top: 10px;
+
+      color: #fff;
+
+      background: $mainBlueColor;
+      border-radius: 51px;
+
+      padding: 15px 90px;
+
+      text-align: center;
+
+      border: 0;
+      outline: none;
+
+      cursor: pointer;
+    }
+  }
+}

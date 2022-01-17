@@ -29,7 +29,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const { main, basket } = ROUTE_NAMES;
+  const { main, basket, order } = ROUTE_NAMES;
 
   const { products: basketProducts } = useSelector(
     (state: AppState) => state.basketReducer
@@ -53,6 +53,21 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 
   const handleCloseMenu = () => {
     setOpenMenu(null);
+  };
+
+  const goMainPage = () => {
+    setOpenMenu(null);
+    navigate(main);
+  };
+
+  const goBasketPage = () => {
+    setOpenMenu(null);
+    navigate(basket);
+  };
+
+  const goOrderPage = () => {
+    setOpenMenu(null);
+    navigate(order);
   };
 
   const openModalLocationHandler = () => {
@@ -176,8 +191,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
                 onClose={handleCloseMenu}
                 sx={{ top: 60 }}
               >
-                <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
-                <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+                <MenuItem onClick={goMainPage}>Главная страница</MenuItem>
+                <MenuItem onClick={goBasketPage}>Корзина</MenuItem>
+                <MenuItem onClick={goOrderPage}>Сделать заказ</MenuItem>
+                <MenuItem onClick={handleCloseMenu}>История заказов</MenuItem>
               </Menu>
             </Box>
           </Box>
