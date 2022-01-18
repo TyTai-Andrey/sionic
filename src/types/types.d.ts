@@ -1,6 +1,7 @@
 type CommonReducerState = {
   selectedSity: string;
-  index: number;
+  alertText: string[];
+  isAlertOpen: boolean;
 };
 
 type BasketReducerState = {

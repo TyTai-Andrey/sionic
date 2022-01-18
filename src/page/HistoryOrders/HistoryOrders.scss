@@ -1,0 +1,20 @@
+@import '../../assets/scss/variables';
+
+.HistoryOrders {
+  padding: 30px 50px 50px 50px;
+
+  &-body {
+    &-title {
+      font-size: 20px;
+      line-height: 23px;
+      font-weight: 700;
+
+      color: $mainBlackColor;
+
+      margin-bottom: 20px;
+    }
+    &-orders-wrapper {
+      width: 100%;
+    }
+  }
+}

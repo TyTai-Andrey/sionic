@@ -27,11 +27,13 @@ import {
   createProduct,
 } from './redux/redux-orm/models/entitiesReducer';
 import { Order } from './page/Order';
+import { HistoryOrders } from './page/HistoryOrders';
+import { Alert } from './components/Alert';
 
 export const App = () => {
   const dispatch = useDispatch();
 
-  const { main, wrongPage, basket, order } = ROUTE_NAMES;
+  const { main, wrongPage, basket, order, history } = ROUTE_NAMES;
   const [openModalLocation, setOpenModalLocation] = useState<boolean>(false);
   const [categorys, setCategorys] = useState<null | ICategory[]>(null);
   const [products, setProducts] = useState<null | IProduct[]>(null);
@@ -46,6 +48,7 @@ export const App = () => {
         <Route path={basket} element={<Basket />} />
         <Route path={wrongPage} element={<WrongPage />} />
         <Route path={order} element={<Order />} />
+        <Route path={history} element={<HistoryOrders />} />
       </Routes>
     );
   };
@@ -118,6 +121,7 @@ export const App = () => {
         onClose={closeModalLocationHandler}
         setSity={setSity}
       />
+      <Alert />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import ruLocale from 'date-fns/locale/ru';
 
 import TextField from '@mui/material/TextField';
@@ -14,9 +15,34 @@ import {
 
 import './Order.scss';
 import { citys } from '../../constants/constants';
-import { getCorrectName, getCorrectPhone } from '../../common';
+import {
+  getCorrectName,
+  getCorrectPhone,
+  setLocalStorage,
+  getLocalStorage,
+} from '../../common';
+import { ROUTE_NAMES } from '../../constants/routeNames';
+import {
+  setAlertText,
+  setIsAlertOpen,
+} from '../../redux/reduxCollection/common';
+import { setProducts } from '../../redux/reduxCollection/basket';
 
 export const Order: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { products } = useSelector((state: AppState) => state.basketReducer);
+
+  const totalPrice = products
+    ? products.reduce(
+        (sum: number, product: IProductBasket) =>
+          sum + product.quantity * product.price,
+        0
+      )
+    : 0;
+
+  const { history } = ROUTE_NAMES;
+
   const [date, setDate] = useState<Date | null>(null);
   const [time, setTime] = useState<Date | null>(null);
 
@@ -41,6 +67,60 @@ export const Order: React.FC = () => {
       ...prev,
       [inputName]: correctData,
     }));
+  };
+
+  const makeOrder = () => {
+    if (!totalPrice) {
+      dispatch(setAlertText(['Ваша корзина пуста']));
+      dispatch(setIsAlertOpen(true));
+      return;
+    }
+    const { name, phone } = personalData;
+    const alertsErrorTexts: string[] = [];
+    if (!date) {
+      alertsErrorTexts.push('Вы не указали дату заказа');
+    }
+    if (!time) {
+      alertsErrorTexts.push('Вы не указали время заказа');
+    }
+    if (!inputValue) {
+      alertsErrorTexts.push('Вы не указали адрес');
+    }
+    if (!name) {
+      alertsErrorTexts.push('Вы не указали имя');
+    }
+    if (!phone) {
+      alertsErrorTexts.push('Вы не указали телефон');
+    }
+    if (date && inputValue && time && totalPrice && name && phone) {
+      const quantity = products
+        ? products.reduce(
+            (sum: number, product: IProductBasket) => sum + product.quantity,
+            0
+          )
+        : 0;
+
+      const newOrder: IOrderData = {
+        quantity,
+        price: totalPrice + 200,
+        address: inputValue,
+        orderNumber: new Date(),
+      };
+
+      const savedOrders: IOrderData[] = getLocalStorage('orders');
+
+      const newOrdersForSave = savedOrders
+        ? [...savedOrders, newOrder]
+        : [newOrder];
+
+      setLocalStorage('orders', newOrdersForSave);
+      dispatch(setProducts(null));
+
+      navigate(history);
+    } else {
+      dispatch(setAlertText(alertsErrorTexts));
+      dispatch(setIsAlertOpen(true));
+    }
   };
 
   return (
@@ -132,21 +212,27 @@ export const Order: React.FC = () => {
                 <div className="OrderWrapper-point-text">
                   Стоимость товаров:
                 </div>
-                <div className="OrderWrapper-point-price">200 584₽</div>
+                <div className="OrderWrapper-point-price">
+                  {totalPrice + ' '}₽
+                </div>
               </div>
               <div className="OrderWrapper-point">
                 <div className="OrderWrapper-point-text">
                   Стоимость доставки:
                 </div>
-                <div className="OrderWrapper-point-price">200 584₽</div>
+                <div className="OrderWrapper-point-price">200 ₽</div>
               </div>
             </div>
             <div className="OrderWrapper-bottom OrderWrapper-point">
               <div className="OrderWrapper-point-text">Итого:</div>
-              <div className="OrderWrapper-point-price-total">200 584₽</div>
+              <div className="OrderWrapper-point-price-total">
+                {totalPrice ? totalPrice + 200 + ' ' : totalPrice}₽
+              </div>
             </div>
           </div>
-          <button className="Order-right-button">Сделать заказ</button>
+          <button className="Order-right-button" onClick={makeOrder}>
+            Сделать заказ
+          </button>
         </div>
       </div>
     </div>

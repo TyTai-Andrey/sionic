@@ -45,3 +45,10 @@ interface book {
   indexes: string[];
   meta: string[];
 }
+
+interface IOrderData {
+  quantity: string | number;
+  price: string | number;
+  address: string;
+  orderNumber: string | Date;
+}

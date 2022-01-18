@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Box,
   AppBar,
@@ -13,8 +13,12 @@ import {
 } from '@mui/material';
 
 import './AppHeader.scss';
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { ROUTE_NAMES } from '../../constants/routeNames';
+import {
+  setAlertText,
+  setIsAlertOpen,
+} from '../../redux/reduxCollection/common';
 
 type AppHeaderProps = {
   setOpenModalLocation: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,9 +31,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   categorys,
   products,
 }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { main, basket, order } = ROUTE_NAMES;
+  const { main, basket, order, history } = ROUTE_NAMES;
 
   const { products: basketProducts } = useSelector(
     (state: AppState) => state.basketReducer
@@ -38,6 +43,14 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   const { selectedSity } = useSelector(
     (state: AppState) => state.commonReducer
   );
+
+  const totalPrice = basketProducts
+    ? basketProducts.reduce(
+        (sum: number, product: IProductBasket) =>
+          sum + product.quantity * product.price,
+        0
+      )
+    : 0;
 
   const [value, setValue] = React.useState(null);
   const [inputValue, setInputValue] = React.useState('');
@@ -60,14 +73,30 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     navigate(main);
   };
 
+  const checkProductsInBasket = (
+    navigate: NavigateFunction,
+    navigatePath: string
+  ) => {
+    if (totalPrice) {
+      navigate(navigatePath);
+    } else {
+      dispatch(setAlertText(['Ваша корзина пуста']));
+      dispatch(setIsAlertOpen(true));
+    }
+  };
+
   const goBasketPage = () => {
     setOpenMenu(null);
-    navigate(basket);
+    checkProductsInBasket(navigate, basket);
   };
 
   const goOrderPage = () => {
     setOpenMenu(null);
-    navigate(order);
+    checkProductsInBasket(navigate, order);
+  };
+  const goHistoryPage = () => {
+    setOpenMenu(null);
+    navigate(history);
   };
 
   const openModalLocationHandler = () => {
@@ -136,7 +165,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               />
               <button
                 className="AppHeader-search-button border"
-                onClick={() => console.log(value)}
+                onClick={() => console.log(value, inputValue)}
               >
                 <img
                   src={require('../../assets/img/searchIcon.svg').default}
@@ -150,7 +179,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           <Box className="AppHeader-icons-wrapper">
             <Box
               className="AppHeader-basket-wrapper"
-              onClick={() => navigate(basket)}
+              onClick={() => checkProductsInBasket(navigate, basket)}
             >
               <button className="AppHeader-basket-button border">
                 <img
@@ -193,8 +222,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               >
                 <MenuItem onClick={goMainPage}>Главная страница</MenuItem>
                 <MenuItem onClick={goBasketPage}>Корзина</MenuItem>
-                <MenuItem onClick={goOrderPage}>Сделать заказ</MenuItem>
-                <MenuItem onClick={handleCloseMenu}>История заказов</MenuItem>
+                <MenuItem onClick={goOrderPage}>Подтвердить заказ</MenuItem>
+                <MenuItem onClick={goHistoryPage}>История заказов</MenuItem>
               </Menu>
             </Box>
           </Box>

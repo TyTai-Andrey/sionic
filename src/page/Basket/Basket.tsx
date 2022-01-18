@@ -1,11 +1,37 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { Product } from './components/Product';
 import './Basket.scss';
+import { ROUTE_NAMES } from '../../constants/routeNames';
+import {
+  setAlertText,
+  setIsAlertOpen,
+} from '../../redux/reduxCollection/common';
 
 export const Basket: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { products } = useSelector((state: AppState) => state.basketReducer);
+  const { order } = ROUTE_NAMES;
+
+  const totalPrice = products
+    ? products.reduce(
+        (sum: number, product: IProductBasket) =>
+          sum + product.quantity * product.price,
+        0
+      )
+    : 0;
+
+  const makeOrder = () => {
+    if (totalPrice) {
+      navigate(order);
+    } else {
+      dispatch(setAlertText(['Ваша корзина пуста']));
+      dispatch(setIsAlertOpen(true));
+    }
+  };
 
   return (
     <div className="Basket">
@@ -22,19 +48,15 @@ export const Basket: React.FC = () => {
             <div className="Basket-body-top-total-title">
               Стоимость корзины:
             </div>
-            <div className="Basket-body-top-total-price">
-              {products
-                ? products.reduce(
-                    (sum: number, product: IProductBasket) =>
-                      sum + product.quantity * product.price,
-                    0
-                  )
-                : 0}
-              ₽{' '}
-            </div>
+            <div className="Basket-body-top-total-price">{totalPrice}₽ </div>
           </div>
           <div className="Basket-body-top-action">
-            <button className="Basket-body-top-action-button">Оформить</button>
+            <button
+              className="Basket-body-top-action-button"
+              onClick={makeOrder}
+            >
+              Оформить
+            </button>
           </div>
           <div className="Basket-body-top-imgs">
             <img
