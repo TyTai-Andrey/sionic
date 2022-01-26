@@ -9,11 +9,11 @@ export const HistoryOrders: React.FC = () => {
 
   return (
     <div className="HistoryOrders">
-      <div className="HistoryOrders-title"></div>
+      <div className="HistoryOrders-title">История заказов</div>
       <div className="HistoryOrders-body">
         <div className="HistoryOrders-body-orders-wrapper">
           {orders?.map((order: IOrderData) => (
-            <Order order={order} />
+            <Order order={order} key={String(order.orderNumber)} />
           ))}
         </div>
       </div>

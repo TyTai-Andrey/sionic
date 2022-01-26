@@ -1,0 +1,143 @@
+@import '../../../../assets/scss/variables';
+
+.HistoryOrders {
+  .Order {
+    border: 1px solid $mainLightBlueColor;
+    border-radius: 32px;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    width: calc(50% - 10px);
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
+    &.active .Order-bottom {
+      height: inherit;
+      padding-bottom: 20px;
+      padding-top: 5px;
+    }
+
+    &:nth-child(odd) {
+      margin-right: 20px;
+    }
+
+    &-arrowUp {
+      position: absolute;
+
+      top: 24px;
+      right: 24px;
+
+      &-img {
+        transform: rotate(180deg);
+        cursor: pointer;
+
+        &.active {
+          transform: rotate(0deg);
+        }
+      }
+    }
+
+    &-top {
+      display: flex;
+
+      &-logo-img {
+        height: 50px;
+      }
+
+      &-info {
+        margin-left: 10px;
+
+        display: flex;
+        flex-direction: column;
+
+        &-name {
+          margin-bottom: 4px;
+
+          font-weight: 600;
+          font-size: 20px;
+          line-height: 130%;
+
+          color: $mainBlackColor;
+        }
+        &-date {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 140%;
+
+          color: $lightGreyColor;
+        }
+      }
+
+      &-detailed {
+        display: flex;
+        align-items: flex-end;
+
+        padding-bottom: 3px;
+        padding-left: 10px;
+
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 127.7%;
+
+        color: $mainBlueColor;
+
+        cursor: pointer;
+      }
+    }
+    &-bottom {
+      display: flex;
+      flex-wrap: wrap;
+
+      height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      overflow: hidden;
+    }
+
+    &-infoBlock {
+      margin-right: 20px;
+
+      &:nth-child(1),
+      &:nth-child(2) {
+        margin-bottom: 10px;
+      }
+
+      &:nth-child(2) {
+        width: calc(67% - 20px);
+        margin-right: 0px;
+      }
+
+      &-title {
+        color: $lightGreyColor;
+
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 122%;
+      }
+      &-info {
+        display: flex;
+        align-items: center;
+
+        color: $mainBlackColor;
+
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 122%;
+
+        &.action {
+          color: $mainBlueColor;
+
+          cursor: pointer;
+        }
+      }
+      &-img {
+        margin-left: 6px;
+      }
+    }
+  }
+}
