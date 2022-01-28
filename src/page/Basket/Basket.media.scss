@@ -1,0 +1,46 @@
+.Basket {
+  @media (max-width: 770px) {
+    padding: 30px 20px 50px;
+  }
+  &-body {
+    &-top {
+      &-logo {
+        @media (max-width: 425px) {
+          display: none;
+        }
+      }
+      &-action-button {
+        @media (max-width: 520px) {
+          padding: 16px 36px;
+        }
+      }
+      &-total {
+        @media (max-width: 545px) {
+          margin: 0 7px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          flex-shrink: 123;
+          &-title {
+            width: min-content;
+          }
+        }
+      }
+      &-imgs {
+        @media (max-width: 710px) {
+          display: none;
+        }
+      }
+    }
+    &-bottom {
+      @media (max-width: 710px) {
+        padding: 40px 30px;
+      }
+      @media (max-width: 500px) {
+        padding: 40px 10px;
+      }
+    }
+  }
+}

@@ -1,0 +1,153 @@
+@import '../../../../assets/scss/variables';
+
+.Product {
+  &-img {
+    &--phone {
+    }
+  }
+  &-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    max-width: 292px;
+
+    overflow: hidden;
+    &-top {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &-bottom {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      &-promo {
+        width: 148px;
+
+        position: relative;
+        &-left {
+          width: 71px;
+          background: #fff;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          position: absolute;
+          left: 0;
+          z-index: 2;
+
+          border: 1px solid $mainBlueColor;
+          border-radius: 0px 100px 100px 6px;
+
+          font-weight: 600;
+          font-size: 12px;
+          line-height: 122%;
+          color: $mainBlueColor;
+        }
+        &-right {
+          width: 83px;
+
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+
+          padding-right: 12px;
+
+          position: absolute;
+          right: 0;
+          z-index: 1;
+
+          border: 1px solid $mainPinkColor;
+          border-radius: 0px 100px 100px 0px;
+
+          font-weight: 600;
+          font-size: 12px;
+          line-height: 122%;
+          color: $mainPinkColor;
+        }
+      }
+      &-info {
+        font-size: 14px;
+        line-height: 140%;
+        color: $mainBlackColor;
+        span {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  &-quantity {
+    width: 135px;
+    height: 44px;
+
+    padding: 22px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border: 1px solid $mainLightBlueColor;
+    border-radius: 35px;
+    &-sign {
+      font-size: 26px;
+      line-height: 10px;
+      color: $mainLightBlueColor;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      user-select: none;
+
+      cursor: pointer;
+    }
+
+    &-total {
+      width: 100%;
+
+      &-value {
+        display: block;
+
+        width: 70%;
+        margin: 0 auto;
+
+        text-align: center;
+        font-size: 16px;
+        line-height: 140%;
+
+        border: 0;
+
+        outline: none;
+
+        color: $mainBlackColor;
+      }
+    }
+  }
+  &-price {
+    &-now {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 140%;
+
+      color: $mainBlackColor;
+    }
+    &-old {
+      font-size: 14px;
+      line-height: 122%;
+
+      color: $footerGreyColor;
+
+      text-decoration: line-through;
+    }
+  }
+  &-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-bottom: 20px;
+  }
+}
+
+@import './Product.media.scss';

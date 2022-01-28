@@ -188,7 +188,7 @@ export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
               addInBasket();
             }}
           >
-            Добавить в корзину
+            Добавить <span>в корзину</span>
           </button>
         </div>
       </div>

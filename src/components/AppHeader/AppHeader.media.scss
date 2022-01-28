@@ -1,0 +1,52 @@
+.AppHeader {
+  @media (max-width: 770px) {
+    margin: 0 20px;
+  }
+
+  &-search {
+    @media (max-width: 455px) {
+      padding: 0 20px 0 0px;
+    }
+    &-icon {
+      @media (max-width: 455px) {
+        height: 15px;
+      }
+    }
+    &-button {
+      @media (max-width: 455px) {
+        height: 32px;
+        padding: 7px 15px;
+      }
+    }
+    &-wrapper {
+      @media (max-width: 700px) {
+        flex-shrink: 1000;
+      }
+
+      @media (max-width: 455px) {
+        height: 40px;
+      }
+      @media (max-width: 380px) {
+        display: none;
+      }
+    }
+  }
+  &-location-wrapper {
+    @media (max-width: 700px) {
+      width: 20px;
+    }
+    @media (max-width: 515px) {
+      display: none;
+    }
+  }
+  &-basket-wrapper {
+    @media (max-width: 590px) {
+      display: none;
+    }
+  }
+  &-icons-wrapper {
+    @media (max-width: 590px) {
+      width: auto;
+    }
+  }
+}

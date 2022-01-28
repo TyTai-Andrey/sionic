@@ -1,0 +1,44 @@
+.AppFooter {
+  @media (max-width: 1114px) {
+    padding: 30px 50px 35px;
+  }
+
+  @media (max-width: 770px) {
+    padding: 30px 20px 35px;
+  }
+
+  &-top {
+    @media (max-width: 640px) {
+      flex-direction: column;
+    }
+    &-right {
+      @media (max-width: 640px) {
+        margin: 10px 0;
+      }
+      @media (max-width: 482px) {
+        flex-direction: column;
+
+        .InstallApp-icons {
+          justify-content: start;
+
+          .IconsBlock-icon:last-child {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+  &-documents {
+    @media (max-width: 497px) {
+      flex-direction: column-reverse;
+      align-items: center;
+      &-item {
+        margin-top: 10px;
+
+        &:first-child {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}

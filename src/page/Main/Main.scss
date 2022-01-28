@@ -124,6 +124,10 @@
 
           user-select: none;
 
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
           &:last-child {
             margin-right: 0;
           }
@@ -138,6 +142,10 @@
           color: $mainBlackColor;
 
           margin-bottom: 5px;
+
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         &-price {
           font-weight: 600;
@@ -155,6 +163,10 @@
             color: $footerGreyColor;
 
             margin-right: 15px;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
         &-priceCorrected {
@@ -205,3 +217,5 @@
     }
   }
 }
+
+@import './Main.media.scss';

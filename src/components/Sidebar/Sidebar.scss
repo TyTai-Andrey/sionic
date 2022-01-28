@@ -3,4 +3,8 @@
   min-height: calc(100vh - 215px);
 
   justify-content: flex-start;
+
+  @media (max-width: 1114px) {
+    display: none;
+  }
 }

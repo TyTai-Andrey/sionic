@@ -1,0 +1,36 @@
+.Product {
+  &-info {
+    @media (max-width: 650px) {
+      max-width: 200px;
+      width: 100%;
+
+      flex-shrink: 10;
+
+      &-bottom {
+        display: none;
+      }
+    }
+    @media (max-width: 600px) {
+      max-width: 150px;
+    }
+    @media (max-width: 550px) {
+      max-width: 100px;
+    }
+    @media (max-width: 400px) {
+      max-width: 70px;
+    }
+  }
+  &-quantity {
+    @media (max-width: 740px) {
+      width: 95px;
+    }
+    @media (max-width: 530px) {
+      width: 65px;
+      padding: 22px 5px;
+
+      &-sign {
+        display: none;
+      }
+    }
+  }
+}
