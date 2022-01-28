@@ -9,6 +9,8 @@ import {
   setAlertText,
   setIsAlertOpen,
 } from '../../redux/reduxCollection/common';
+import { setProducts } from '../../redux/reduxCollection/basket';
+import { setLocalStorage } from '../../common';
 
 export const Basket: React.FC = () => {
   const navigate = useNavigate();
@@ -33,12 +35,19 @@ export const Basket: React.FC = () => {
     }
   };
 
+  const clearBasket = () => {
+    dispatch(setProducts(null));
+    setLocalStorage('productsBasket', null);
+  };
+
   return (
     <div className="Basket">
       <div className="Basket-header">
         <div className="Basket-header-title">Корзина</div>
         <div className="Basket-header-clear">
-          <div className="Basket-header-clear-button">Очистить корзину</div>
+          <div className="Basket-header-clear-button" onClick={clearBasket}>
+            Очистить корзину
+          </div>
         </div>
       </div>
       <div className="Basket-body">
