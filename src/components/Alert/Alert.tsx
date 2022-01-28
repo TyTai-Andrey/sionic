@@ -24,8 +24,8 @@ export const Alert = () => {
         <Snackbar
           open={isAlertOpen}
           onClose={handleClose}
-          //   TransitionComponent={state.Transition}
           message={text}
+          // мало ли текст повторяться будет
           key={text + idx}
           sx={{
             bottom: 24 + idx * 60 + 'px !important',

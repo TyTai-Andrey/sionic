@@ -13,6 +13,10 @@ import {
   createProductImages,
   createProductVariations,
 } from '../../../../redux/redux-orm/models/entitiesReducer';
+import {
+  setProductsImg,
+  setProductsVariations as setProductsVars,
+} from '../../../../redux/reduxCollection/showProducts';
 
 type ProductProps = {
   product: IProduct;
@@ -21,6 +25,9 @@ type ProductProps = {
 
 export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
   const { products } = useSelector((state: AppState) => state.basketReducer);
+  const { productsImg, productVars } = useSelector(
+    (state: AppState) => state.showProductsReducer
+  );
   const basketProduct = products?.find(
     (item: IProductBasket) => item.id === product.id
   );
@@ -35,6 +42,13 @@ export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
   >(null);
 
   const getProductImages = async () => {
+    const hasImg = productsImg?.find(
+      (productImgs) => productImgs[0]?.product_id === product.id
+    );
+    if (hasImg) {
+      setProductImages(hasImg);
+      return;
+    }
     const productImages = await feachProductImages(
       null,
       null,
@@ -43,6 +57,7 @@ export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
     );
     if (productImages) {
       setProductImages(productImages);
+      dispatch(setProductsImg(productImages));
 
       // productImages.forEach((elem: IProductImages) =>
       //   dispatch(createProductImages(elem))
@@ -51,6 +66,13 @@ export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
   };
 
   const getProductVariations = async () => {
+    const hasVars = productVars?.find(
+      (productVars) => productVars[0]?.product_id === product.id
+    );
+    if (hasVars) {
+      setProductVariations(hasVars);
+      return;
+    }
     const productVariations = await feachProductVariations(
       null,
       null,
@@ -59,6 +81,7 @@ export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
     );
     if (productVariations) {
       setProductVariations(productVariations);
+      dispatch(setProductsVars(productVariations));
     }
 
     // productVariations.forEach((elem: IProductVariations) =>

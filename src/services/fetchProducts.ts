@@ -3,7 +3,6 @@ import { createPath } from '../common';
 
 export const fetchProducts = async (sort: paramFech = null, range: paramFech = null, filter: paramFech = null) => {
 
-    
   try {
     const rawResponse = await fetch(
       `${API_URL}/Products/` + createPath(sort, range, filter)

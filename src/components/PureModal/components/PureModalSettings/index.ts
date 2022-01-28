@@ -1,0 +1,1 @@
+export { PureModalSettings } from './PureModalSettings';

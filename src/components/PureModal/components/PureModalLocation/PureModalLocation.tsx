@@ -23,17 +23,21 @@ export const PureModalLocation: React.FC<PureModalLocationProps> = ({
   );
 
   const header = (
-    <DialogTitle sx={{ textAlign: 'center', fontSize: '2em' }}>
-      Selected sity: {selectedSity}
+    <DialogTitle sx={{ textAlign: 'center', fontSize: '2em', pt: 3 }}>
+      Выбранный город: {selectedSity}
     </DialogTitle>
   );
 
   const body = (
     <List>
-      {citys.map((sity: string) => (
+      {citys.map((sity: string, idx: number) => (
         <ListItem
           key={sity}
-          sx={{ textAlign: 'center', cursor: 'pointer' }}
+          sx={{
+            textAlign: 'center',
+            cursor: 'pointer',
+            pb: citys.length - 1 === idx ? 4 : 1,
+          }}
           onClick={() => setSity(sity)}
         >
           <ListItemText primary={sity} />

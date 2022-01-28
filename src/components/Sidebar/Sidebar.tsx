@@ -15,6 +15,9 @@ export const Sidebar: React.FC = () => {
         <ImageList sx={{ width: 351, height: '100%', p: 2 }} cols={1}>
           {sidebarBlocksData.map((item: IBlockData, idx: number) => (
             <ImageListItem
+              // Не бейте по жопе, я знаю что индексы *типо нельзя* использовать
+              // и знаю почему, !НО! это статичный массив и url тут не уникальные,
+              // да и в общем-то тут и не нужен этот key
               key={item.img + idx}
               sx={{
                 m: '10px 0',

@@ -1,0 +1,37 @@
+.PureModalSettings {
+  &-header {
+    text-align: center;
+    font-size: 2em !important;
+    padding-top: 24px !important;
+  }
+  &-body {
+    margin-bottom: 20px !important;
+    &-item {
+      width: 70% !important;
+      margin: 0 auto !important;
+
+      &-label {
+        user-select: none;
+        cursor: pointer;
+      }
+    }
+  }
+  &-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-button {
+      padding: 10px 30px;
+      margin-bottom: 30px;
+      border: 1px solid #ccc;
+      background-color: #ccc;
+      border-radius: 5px;
+      font-size: 18px;
+      font-weight: 500;
+
+      cursor: pointer;
+    }
+  }
+}

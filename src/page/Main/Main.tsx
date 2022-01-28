@@ -12,9 +12,14 @@ import './Main.scss';
 type MainProps = {
   categorys: ICategory[] | null;
   allProducts: IProduct[] | null;
+  setOpenModalSettings: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const Main: React.FC<MainProps> = ({ categorys, allProducts }) => {
+export const Main: React.FC<MainProps> = ({
+  categorys,
+  allProducts,
+  setOpenModalSettings,
+}) => {
   const dispatch = useDispatch();
   const { products } = useSelector(
     (state: AppState) => state.showProductsReducer
@@ -30,7 +35,12 @@ export const Main: React.FC<MainProps> = ({ categorys, allProducts }) => {
       <div className="Main-header">
         <div className="Main-header-settings">
           <div className="Main-header-settings-title">Категории товаров</div>
-          <button className="Main-header-settings-button">Настройки</button>
+          <button
+            className="Main-header-settings-button"
+            onClick={() => setOpenModalSettings(true)}
+          >
+            Настройки
+          </button>
         </div>
         <div className="Main-header-categorys">
           {categorys?.map((category: ICategory, idx: number) => {

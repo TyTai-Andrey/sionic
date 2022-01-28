@@ -19,17 +19,21 @@ import {
   setAlertText,
   setIsAlertOpen,
 } from '../../redux/reduxCollection/common';
+import { setProducts } from '../../redux/reduxCollection/showProducts';
+import { fetchProducts } from '../../services/fetchProducts';
 
 type AppHeaderProps = {
   setOpenModalLocation: React.Dispatch<React.SetStateAction<boolean>>;
   categorys: null | ICategory[];
   products: null | IProduct[];
+  setProductsSearch: React.Dispatch<React.SetStateAction<IProduct[] | null>>;
 };
 
 export const AppHeader: React.FC<AppHeaderProps> = ({
   setOpenModalLocation,
   categorys,
   products,
+  setProductsSearch,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,7 +56,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       )
     : 0;
 
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState<null | ICategory | IProduct>(null);
   const [inputValue, setInputValue] = React.useState('');
   const [openMenu, setOpenMenu] = useState<
     (EventTarget & HTMLDivElement) | null
@@ -101,6 +105,31 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 
   const openModalLocationHandler = () => {
     setOpenModalLocation(true);
+  };
+
+  const searchHandler = async () => {
+    if ((value as IProduct)?.category_id) {
+      dispatch(setProducts([value]));
+      setValue(null);
+      return;
+    }
+    if ((value as ICategory)?.id) {
+      const products = await fetchProducts(
+        null,
+        null,
+        `{"category_id": ${(value as ICategory)?.id}}`
+      );
+      if (products) {
+        setProductsSearch(
+          products?.map((i: IProduct) => ({
+            ...i,
+            label: i.name,
+          }))
+        );
+        dispatch(setProducts(products.slice(0, 16)));
+      }
+      setValue(null);
+    }
   };
 
   return (
@@ -165,7 +194,9 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               />
               <button
                 className="AppHeader-search-button border"
-                onClick={() => console.log(value, inputValue)}
+                onClick={() => {
+                  searchHandler();
+                }}
               >
                 <img
                   src={require('../../assets/img/searchIcon.svg').default}
@@ -200,7 +231,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             <Box className="AppHeader-ava-wrapper">
               <Avatar
                 className="AppHeader-ava"
-                alt="Cindy Baker"
+                alt="ava"
                 src="https://sun1-56.userapi.com/s/v1/ig2/SkMBdyfv-qkF6m7PrhD9VUFoyoiIVAzOugaBAZa349M3Gsm41RlI3H9svviTyUlaOMqEqwvpNK6mNeFQ1lJ2Ms__.jpg?size=50x50&quality=95&crop=346,541,720,720&ava=1"
                 onClick={(event) => handleOpenMenu(event)}
               />

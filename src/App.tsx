@@ -29,12 +29,14 @@ import {
 import { Order } from './page/Order';
 import { HistoryOrders } from './page/HistoryOrders';
 import { Alert } from './components/Alert';
+import { PureModalSettings } from './components/PureModal/components/PureModalSettings';
 
 export const App = () => {
   const dispatch = useDispatch();
 
   const { main, wrongPage, basket, order, history } = ROUTE_NAMES;
   const [openModalLocation, setOpenModalLocation] = useState<boolean>(false);
+  const [openModalSettings, setOpenModalSettings] = useState<boolean>(false);
   const [categorys, setCategorys] = useState<null | ICategory[]>(null);
   const [products, setProducts] = useState<null | IProduct[]>(null);
 
@@ -43,7 +45,13 @@ export const App = () => {
       <Routes>
         <Route
           path={main}
-          element={<Main categorys={categorys} allProducts={products} />}
+          element={
+            <Main
+              categorys={categorys}
+              allProducts={products}
+              setOpenModalSettings={setOpenModalSettings}
+            />
+          }
         />
         <Route path={basket} element={<Basket />} />
         <Route path={wrongPage} element={<WrongPage />} />
@@ -55,6 +63,10 @@ export const App = () => {
 
   const closeModalLocationHandler = () => {
     setOpenModalLocation(false);
+  };
+
+  const closeModalSettingsHandler = () => {
+    setOpenModalSettings(false);
   };
 
   const setSity = (sity: string) => {
@@ -110,6 +122,7 @@ export const App = () => {
             setOpenModalLocation={setOpenModalLocation}
             categorys={categorys}
             products={products}
+            setProductsSearch={setProducts}
           />
           {renderRoutes()}
         </Box>
@@ -120,6 +133,11 @@ export const App = () => {
         open={openModalLocation}
         onClose={closeModalLocationHandler}
         setSity={setSity}
+      />
+      <PureModalSettings
+        open={openModalSettings}
+        onClose={closeModalSettingsHandler}
+        categorys={categorys}
       />
       <Alert />
     </>
