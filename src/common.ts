@@ -48,7 +48,6 @@ export const getCorrectName = (name: string) => {
   };
 
 export const checkName = (name: string) => {
-    // if (/[A-z_0-9]+/g.test(name)) return true;
     if (/[\wа-я_A-Я]+/g.test(name) && !/[<>()[\]\\{}~!#,;:@?$/"'`]+/g.test(name))
       return true;
     return false;

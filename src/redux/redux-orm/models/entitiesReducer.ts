@@ -6,11 +6,6 @@ const initialState: OrmState<
   IndexedModelClasses<any, string | number | symbol>
 > = schema.getEmptyState();
 
-// Product
-// Categoryes
-// ProductImages
-// ProductVariations
-
 enum EntitiesActionTypes {
   PRODUCT_CREATE = 'ENTITIES/PRODUCT_CREATE',
   CATEGORY_CREATE = 'ENTITIES/CATEGORY_CREATE',

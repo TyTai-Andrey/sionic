@@ -169,7 +169,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               }}
             >
               <Autocomplete
-                // disablePortal
                 id="combo-box-demo"
                 className="AppHeader-search"
                 value={value}

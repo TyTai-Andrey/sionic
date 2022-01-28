@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSelector } from 'redux-orm';
 
 import { Skeleton } from '@mui/material';
 
@@ -9,10 +8,6 @@ import { feachProductImages } from '../../../../services/feachProductImages';
 import { feachProductVariations } from '../../../../services/feachProductVariations';
 import { setProducts } from '../../../../redux/reduxCollection/basket';
 import { setLocalStorage } from '../../../../common';
-import {
-  createProductImages,
-  createProductVariations,
-} from '../../../../redux/redux-orm/models/entitiesReducer';
 import {
   setProductsImg,
   setProductsVariations as setProductsVars,
@@ -58,10 +53,6 @@ export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
     if (productImages) {
       setProductImages(productImages);
       dispatch(setProductsImg(productImages));
-
-      // productImages.forEach((elem: IProductImages) =>
-      //   dispatch(createProductImages(elem))
-      // );
     }
   };
 
@@ -83,10 +74,6 @@ export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
       setProductVariations(productVariations);
       dispatch(setProductsVars(productVariations));
     }
-
-    // productVariations.forEach((elem: IProductVariations) =>
-    //   dispatch(createProductVariations(elem))
-    // );
   };
 
   useEffect(() => {
@@ -94,6 +81,7 @@ export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
       getProductImages();
       getProductVariations();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
   const addInBasket = () => {
@@ -159,6 +147,7 @@ export const Product: React.FC<ProductProps> = ({ product, categorys }) => {
                     {category.name}
                   </div>
                 );
+              return null;
             })}
           </div>
         </div>

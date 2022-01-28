@@ -166,7 +166,6 @@ export const Order: React.FC = () => {
               className="Order-left-setting-location-selector--icon"
             />
             <Autocomplete
-              // disablePortal
               className="Order-left-setting-location-selector"
               value={value}
               onChange={(event, newValue) => {

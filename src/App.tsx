@@ -1,35 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
 import { Main } from './page/Main';
 import { Basket } from './page/Basket';
 import { WrongPage } from './page/WrongPage';
-
-import { Box } from '@mui/material';
-
+import { Order } from './page/Order';
+import { HistoryOrders } from './page/HistoryOrders';
 import { AppHeader } from './components/AppHeader';
 import { Sidebar } from './components/Sidebar';
 import { AppFooter } from './components/AppFooter';
+import { Alert } from './components/Alert';
+import { Box } from '@mui/material';
 import { PureModalLocation } from './components/PureModal/components/PureModalLocation';
+import { PureModalSettings } from './components/PureModal/components/PureModalSettings';
 
-import { ROUTE_NAMES } from './constants/routeNames';
 import { setSelectedSity } from './redux/reduxCollection/common';
 import { setProducts as setShowProducts } from './redux/reduxCollection/showProducts';
 import { setProducts as setBasketProducts } from './redux/reduxCollection/basket';
-
-import './App.scss';
 import { fetchCategories } from './services/fetchCategories';
 import { fetchProducts } from './services/fetchProducts';
+import { ROUTE_NAMES } from './constants/routeNames';
 import { getLocalStorage } from './common';
-import {
-  createCategory,
-  createProduct,
-} from './redux/redux-orm/models/entitiesReducer';
-import { Order } from './page/Order';
-import { HistoryOrders } from './page/HistoryOrders';
-import { Alert } from './components/Alert';
-import { PureModalSettings } from './components/PureModal/components/PureModalSettings';
+
+import './App.scss';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -84,10 +78,6 @@ export const App = () => {
         }))
       );
       dispatch(setShowProducts(products.slice(0, 16)));
-
-      // products.forEach((element: IProduct, idx: number) =>
-      //   dispatch(createProduct(element))
-      // );
     }
   };
 
@@ -101,17 +91,14 @@ export const App = () => {
           label: i.name,
         }))
       );
-
-      // categories.forEach((element: ICategory, idx: number) =>
-      //   dispatch(createCategory(element))
-      // );
     }
   };
 
   useEffect(() => {
-    if (!categorys) getCategories();
-    if (!products) getProducts();
+    getCategories();
+    getProducts();
     dispatch(setBasketProducts(getLocalStorage('productsBasket')));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

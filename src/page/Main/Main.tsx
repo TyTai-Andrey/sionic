@@ -60,6 +60,8 @@ export const Main: React.FC<MainProps> = ({
                   {category.name}
                 </div>
               );
+
+            return null;
           })}
         </div>
       </div>
