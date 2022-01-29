@@ -45,7 +45,7 @@ export const PureModalSettings: React.FC<PureModalSettingsProps> = ({
         <ListItem key={category.id} className="PureModalSettings-body-item">
           <FormControlLabel
             className="PureModalSettings-body-item-label"
-            label={String(category.label)}
+            label={category.name}
             control={
               <Checkbox
                 checked={checked[idx]}

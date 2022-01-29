@@ -39,9 +39,9 @@ export const sidebarBlocksData: IBlockData[] = [
     img: 'https://www.live24.am/sites/default/files/styles/wide_r/public/2019-10/a31b95ced13e2605da3786f972d2e4a3.jpg?itok=nhpKORXA',
     title: 'Новая коллекция',
   },
-]
+];
 
-export const citys = ['Москва', 'Воронеж', 'Краснодар', 'Александровск']
+export const citys = ['Москва', 'Воронеж', 'Краснодар', 'Александровск'];
 
 export const categorysColors = [
   '#2967FF',
@@ -50,5 +50,7 @@ export const categorysColors = [
   '#FF7CB4',
   '#FFA601',
   '#FF2D87',
-]
+];
 
+export const myAva =
+  'https://sun1-56.userapi.com/s/v1/ig2/SkMBdyfv-qkF6m7PrhD9VUFoyoiIVAzOugaBAZa349M3Gsm41RlI3H9svviTyUlaOMqEqwvpNK6mNeFQ1lJ2Ms__.jpg?size=50x50&quality=95&crop=346,541,720,720&ava=1';

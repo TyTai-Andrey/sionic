@@ -67,7 +67,7 @@ export const Main: React.FC<MainProps> = ({
       </div>
       <div className="Main-body">
         <div className="Main-body-boxes-wrapper">
-          {products?.map((product, idx) => (
+          {products?.map((product) => (
             <Product product={product} categorys={categorys} key={product.id} />
           ))}
         </div>

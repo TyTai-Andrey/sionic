@@ -71,12 +71,7 @@ export const App = () => {
   const getProducts = async () => {
     const products = await fetchProducts();
     if (products) {
-      setProducts(
-        products?.map((i: IProduct) => ({
-          ...i,
-          label: i.name,
-        }))
-      );
+      setProducts(products);
       dispatch(setShowProducts(products.slice(0, 16)));
     }
   };
@@ -85,12 +80,7 @@ export const App = () => {
     const categories = await fetchCategories();
 
     if (categories) {
-      setCategorys(
-        categories?.map((i: ICategory) => ({
-          ...i,
-          label: i.name,
-        }))
-      );
+      setCategorys(categories);
     }
   };
 

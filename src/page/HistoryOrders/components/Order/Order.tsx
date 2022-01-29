@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { classnames } from '../../../../common';
+import { classnames, copy } from '../../../../common';
 import {
   setIsAlertOpen,
   setAlertText,
@@ -37,15 +37,7 @@ export const Order: React.FC<OrderProps> = ({ order }) => {
   ];
 
   const handleCopy = (numberOrder: string) => {
-    const el = document.createElement('textarea');
-    el.value = numberOrder;
-    el.setAttribute('readonly', '');
-    el.style.position = 'absolute';
-    el.style.left = '-9999px';
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
+    copy(numberOrder);
 
     dispatch(setAlertText(['Номер заказа скопирован']));
     dispatch(setIsAlertOpen(true));
@@ -53,7 +45,7 @@ export const Order: React.FC<OrderProps> = ({ order }) => {
 
   const renderInfoBlock = (item: typeInfoBlockDate) => {
     return (
-      <div className="Order-infoBlock">
+      <div className="Order-infoBlock" key={item.title + item.info}>
         <div className="Order-infoBlock-title">{item.title}</div>
         <div
           className={classnames('Order-infoBlock-info', {

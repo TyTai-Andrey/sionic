@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ruLocale from 'date-fns/locale/ru';
@@ -20,6 +20,8 @@ import {
   getCorrectPhone,
   setLocalStorage,
   getLocalStorage,
+  getTotalPrice,
+  noFalseValues,
 } from '../../common';
 import { ROUTE_NAMES } from '../../constants/routeNames';
 import {
@@ -33,13 +35,10 @@ export const Order: React.FC = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state: AppState) => state.basketReducer);
 
-  const totalPrice = products
-    ? products.reduce(
-        (sum: number, product: IProductBasket) =>
-          sum + product.quantity * product.price,
-        0
-      )
-    : 0;
+  const totalPrice = useMemo(
+    () => getTotalPrice(products, 'quantity', 'price'),
+    [products]
+  );
 
   const { history } = ROUTE_NAMES;
 
@@ -92,13 +91,8 @@ export const Order: React.FC = () => {
     if (!phone) {
       alertsErrorTexts.push('Вы не указали телефон');
     }
-    if (date && inputValue && time && totalPrice && name && phone) {
-      const quantity = products
-        ? products.reduce(
-            (sum: number, product: IProductBasket) => sum + product.quantity,
-            0
-          )
-        : 0;
+    if (noFalseValues([date, inputValue, time, totalPrice, name, phone])) {
+      const quantity = getTotalPrice(products, 'quantity');
 
       const newOrder: IOrderData = {
         quantity,
@@ -168,12 +162,11 @@ export const Order: React.FC = () => {
             <Autocomplete
               className="Order-left-setting-location-selector"
               value={value}
-              onChange={(event, newValue) => {
-                //@ts-ignore
+              onChange={(_, newValue) => {
                 newValue && setValue(newValue);
               }}
               inputValue={inputValue}
-              onInputChange={(event, newInputValue) => {
+              onInputChange={(_, newInputValue) => {
                 setInputValue(newInputValue);
                 setValue(null);
               }}

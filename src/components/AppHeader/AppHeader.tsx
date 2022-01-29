@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   AppBar,
@@ -12,8 +13,6 @@ import {
   TextField,
 } from '@mui/material';
 
-import './AppHeader.scss';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { ROUTE_NAMES } from '../../constants/routeNames';
 import {
   setAlertText,
@@ -21,6 +20,9 @@ import {
 } from '../../redux/reduxCollection/common';
 import { setProducts } from '../../redux/reduxCollection/showProducts';
 import { fetchProducts } from '../../services/fetchProducts';
+import { getTotalPrice } from '../../common';
+import { myAva } from '../../constants/constants';
+import './AppHeader.scss';
 
 type AppHeaderProps = {
   setOpenModalLocation: React.Dispatch<React.SetStateAction<boolean>>;
@@ -48,13 +50,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     (state: AppState) => state.commonReducer
   );
 
-  const totalPrice = basketProducts
-    ? basketProducts.reduce(
-        (sum: number, product: IProductBasket) =>
-          sum + product.quantity * product.price,
-        0
-      )
-    : 0;
+  const totalPrice = useMemo(
+    () => getTotalPrice(basketProducts, 'price'),
+    [basketProducts]
+  );
 
   const [value, setValue] = React.useState<null | ICategory | IProduct>(null);
   const [inputValue, setInputValue] = React.useState('');
@@ -77,10 +76,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     navigate(main);
   };
 
-  const checkProductsInBasket = (
-    navigate: NavigateFunction,
-    navigatePath: string
-  ) => {
+  const checkProductsInBasket = (navigatePath: string) => {
     if (totalPrice) {
       navigate(navigatePath);
     } else {
@@ -91,12 +87,12 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 
   const goBasketPage = () => {
     setOpenMenu(null);
-    checkProductsInBasket(navigate, basket);
+    checkProductsInBasket(basket);
   };
 
   const goOrderPage = () => {
     setOpenMenu(null);
-    checkProductsInBasket(navigate, order);
+    checkProductsInBasket(order);
   };
   const goHistoryPage = () => {
     setOpenMenu(null);
@@ -108,29 +104,39 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   };
 
   const searchHandler = async () => {
-    if ((value as IProduct)?.category_id) {
+    if ((value as IProduct).category_id) {
       dispatch(setProducts([value]));
       setValue(null);
       return;
     }
-    if ((value as ICategory)?.id) {
+    if ((value as ICategory).id) {
       const products = await fetchProducts(
         null,
         null,
-        `{"category_id": ${(value as ICategory)?.id}}`
+        `{"category_id": ${(value as ICategory).id}}`
       );
       if (products) {
-        setProductsSearch(
-          products?.map((i: IProduct) => ({
-            ...i,
-            label: i.name,
-          }))
-        );
+        setProductsSearch(products);
         dispatch(setProducts(products.slice(0, 16)));
       }
       setValue(null);
     }
   };
+
+  const getOptionsAutocomplete = (
+    categorys: ICategory[] | null,
+    products: IProduct[] | null
+  ): ICategory[] | IProduct[] | (ICategory | IProduct)[] => {
+    if (categorys && products) return [...categorys, ...products];
+    if (categorys) return categorys;
+    if (products) return products;
+    return [];
+  };
+
+  const optionsAutocomplete = useMemo(
+    () => getOptionsAutocomplete(categorys, products),
+    [categorys, products]
+  );
 
   return (
     <Box>
@@ -172,18 +178,16 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
                 id="combo-box-demo"
                 className="AppHeader-search"
                 value={value}
-                onChange={(event, newValue) => {
-                  //@ts-ignore
+                onChange={(_, newValue) => {
                   newValue && setValue(newValue);
                 }}
                 inputValue={inputValue}
-                onInputChange={(event, newInputValue) => {
+                onInputChange={(_, newInputValue) => {
                   setInputValue(newInputValue);
                   setValue(null);
                 }}
-                options={
-                  categorys && products ? [...categorys, ...products] : []
-                }
+                options={optionsAutocomplete}
+                getOptionLabel={(option) => option.name}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -209,7 +213,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           <Box className="AppHeader-icons-wrapper">
             <Box
               className="AppHeader-basket-wrapper"
-              onClick={() => checkProductsInBasket(navigate, basket)}
+              onClick={() => checkProductsInBasket(basket)}
             >
               <button className="AppHeader-basket-button border">
                 <img
@@ -231,7 +235,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               <Avatar
                 className="AppHeader-ava"
                 alt="ava"
-                src="https://sun1-56.userapi.com/s/v1/ig2/SkMBdyfv-qkF6m7PrhD9VUFoyoiIVAzOugaBAZa349M3Gsm41RlI3H9svviTyUlaOMqEqwvpNK6mNeFQ1lJ2Ms__.jpg?size=50x50&quality=95&crop=346,541,720,720&ava=1"
+                src={myAva}
                 onClick={(event) => handleOpenMenu(event)}
               />
               <Menu

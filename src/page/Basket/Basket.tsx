@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import {
   setIsAlertOpen,
 } from '../../redux/reduxCollection/common';
 import { setProducts } from '../../redux/reduxCollection/basket';
-import { setLocalStorage } from '../../common';
+import { getTotalPrice, setLocalStorage } from '../../common';
 
 export const Basket: React.FC = () => {
   const navigate = useNavigate();
@@ -18,13 +18,10 @@ export const Basket: React.FC = () => {
   const { products } = useSelector((state: AppState) => state.basketReducer);
   const { order } = ROUTE_NAMES;
 
-  const totalPrice = products
-    ? products.reduce(
-        (sum: number, product: IProductBasket) =>
-          sum + product.quantity * product.price,
-        0
-      )
-    : 0;
+  const totalPrice = useMemo(
+    () => getTotalPrice(products, 'quantity', 'price'),
+    [products]
+  );
 
   const makeOrder = () => {
     if (totalPrice) {

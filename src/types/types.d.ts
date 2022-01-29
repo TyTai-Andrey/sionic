@@ -12,8 +12,6 @@ type ShowProductsReducerState = {
   products: IProduct[] | null;
   productsImg: IProductImages[][] | null;
   productVars: IProductVariations[][] | null;
-  
-  
 };
 
 type EntitiesReducerState = {

@@ -3,23 +3,20 @@ interface IBlockData {
   img: string;
 }
 
-interface ICategory {
+interface I_Id_And_Name {
   id: number;
   name: string;
-  label?: string;
 }
 
-interface IProduct {
-  id: number;
-  name: string;
+interface ICategory extends I_Id_And_Name {
+}
+
+interface IProduct extends I_Id_And_Name {
   category_id: number;
   description: string;
-  label?: string;
 }
 
-interface IProductBasket {
-  id: number;
-  name: string;
+interface IProductBasket extends I_Id_And_Name {
   quantity: number;
   price: number;
   stock: number;
