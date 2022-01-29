@@ -1,4 +1,7 @@
 {
+  "exclude": [
+    "**/*.test.ts"
+  ],
   "compilerOptions": {
     "jsx": "react-jsx",
     "target": "es5",
@@ -18,7 +21,10 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "noImplicitAny": true,
+    "outDir": "./dist"
+
   },
   "include": [
     "src"

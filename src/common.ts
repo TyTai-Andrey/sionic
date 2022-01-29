@@ -2,7 +2,7 @@ import clsx from 'clsx';
 export const classnames = clsx;
 
 
-export const createPath = (sort: paramFech, range: paramFech, filter: paramFech) => {
+export const createPath = (sort: paramFech = null, range: paramFech = null, filter: paramFech = null) => {
     let path = '';
 
     if (sort !== null || range !== null || filter !== null) {
@@ -12,9 +12,15 @@ export const createPath = (sort: paramFech, range: paramFech, filter: paramFech)
         path+=`sort=${sort}`;
     }
     if (range !== null) {
+        if (sort !== null) {
+            path+='&';
+        }
         path+=`range=${range}`;
     }
     if (filter !== null) {
+        if (sort !== null || range !== null) {
+            path+='&';
+        }
         path+=`filter=${filter}`;
     }
 
