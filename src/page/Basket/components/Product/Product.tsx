@@ -58,9 +58,8 @@ export const Product: React.FC<ProductProps> = ({ product }) => {
         <div
           className="Product-quantity-sign"
           onClick={() =>
-            product.quantity > 0
-              ? changeProductData('quantity', product.quantity - 1)
-              : null
+            product.quantity > 0 &&
+            changeProductData('quantity', product.quantity - 1)
           }
         >
           -
