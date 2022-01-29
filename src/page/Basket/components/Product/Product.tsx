@@ -14,7 +14,7 @@ export const Product: React.FC<ProductProps> = ({ product }) => {
   const { products } = useSelector((state: AppState) => state.basketReducer);
   const dispatch = useDispatch();
 
-  const chanchProductData = (field: string, data: any) => {
+  const changeProductData = (field: string, data: any) => {
     const newProductsData = products?.map((item) =>
       item.id === product.id ? { ...item, [`${field}`]: data } : item
     );
@@ -59,7 +59,7 @@ export const Product: React.FC<ProductProps> = ({ product }) => {
           className="Product-quantity-sign"
           onClick={() =>
             product.quantity > 0
-              ? chanchProductData('quantity', product.quantity - 1)
+              ? changeProductData('quantity', product.quantity - 1)
               : null
           }
         >
@@ -72,14 +72,14 @@ export const Product: React.FC<ProductProps> = ({ product }) => {
             className="Product-quantity-total-value"
             value={product.quantity}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              chanchProductData('quantity', Number(e.target.value))
+              changeProductData('quantity', Number(e.target.value))
             }
           />
         </div>
 
         <div
           className="Product-quantity-sign"
-          onClick={() => chanchProductData('quantity', product.quantity + 1)}
+          onClick={() => changeProductData('quantity', product.quantity + 1)}
         >
           +
         </div>
